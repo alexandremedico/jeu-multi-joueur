@@ -132,28 +132,39 @@ webSocketServer.on("connect", function (ioSocket) {
     ioSocket.emit("bille", monObjet);
 
     ioSocket.on("deplacementHaut", function (haut) {
-        console.log(haut);
+        // console.log(haut);
         ioSocket.emit("deplacementHaut", haut);
+        ioSocket.broadcast.emit("deplacementHaut", haut);
     })
 
     ioSocket.on("deplacementBas", function (haut) {
-        console.log(haut);
         ioSocket.emit("deplacementBas", haut);
+        // console.log(haut);
+        ioSocket.broadcast.emit("deplacementBas", haut);
     })
 
     ioSocket.on("deplacementBille", function (haut, cote) {
         // console.log(haut, cote);
         ioSocket.emit("deplacementBille", haut, cote);
+        ioSocket.broadcast.emit("deplacementBille", haut, cote);
     })
 
     ioSocket.on("scoreJoueur1", function (scoreJ1) {
         // console.log(haut, cote);
         ioSocket.emit("scoreJoueur1", scoreJ1);
+        ioSocket.broadcast.emit("scoreJoueur1", scoreJ1);
     })
 
     ioSocket.on("scoreJoueur2", function (scoreJ2) {
         // console.log(haut, cote);
         ioSocket.emit("scoreJoueur2", scoreJ2);
+        ioSocket.broadcast.emit("scoreJoueur2", scoreJ2);
+    })
+
+    ioSocket.on("reset", function (haut, cote) {
+        // console.log(haut, cote);
+        ioSocket.emit("reset", haut, cote);
+        ioSocket.broadcast.emit("reset", haut, cote);
     })
 });
 

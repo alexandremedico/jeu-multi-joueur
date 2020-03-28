@@ -17,8 +17,8 @@
     }
     
     
-    let lorr = Math.round(Math.random() * 20);
-    // var lorr = 17;
+    // let lorr = Math.round(Math.random() * 20);
+    var lorr = 12;
     let scoreJ1 = 0;
     let scoreJ2 = 0;
     
@@ -162,7 +162,7 @@
                     lorr = 12;
                 }
 
-                ioSocket.emit("deplacementBille", {haut, cote});
+                ioSocket.emit("deplacementBille", haut, cote);
 
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) <= 0) {
@@ -192,7 +192,7 @@
                     lorr = 17;
                 }
 
-                ioSocket.emit("deplacementBille", {haut, cote});
+                ioSocket.emit("deplacementBille", haut, cote);
 
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) <= 0) {
@@ -223,7 +223,7 @@
                     lorr = 3;
                 }
 
-                ioSocket.emit("deplacementBille", {haut, cote});
+                ioSocket.emit("deplacementBille", haut, cote);
 
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) >= 1908) {
@@ -252,7 +252,7 @@
                     lorr = 7;
                 }
 
-                ioSocket.emit("deplacementBille", {haut, cote});
+                ioSocket.emit("deplacementBille", haut, cote);
 
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) >= 1908) {
@@ -270,24 +270,40 @@
         function reset() {
             HTMLDivElement3.style.top = 426 + 'px';
             HTMLDivElement3.style.left = 955 + 'px';
+            var haut = HTMLDivElement3.style.top;
+            var cote = HTMLDivElement3.style.left;
+            console.log(haut,cote);
             bool = true;
             lorr = Math.round(Math.random() * 20);
+            ioSocket.emit("reset", haut, cote);
         }
 
 
         ioSocket.on('deplacementHaut', function (haut) {
-            console.log(haut);
             HTMLDivElement.style.top = haut + "px";
         })
 
         ioSocket.on('deplacementBas', function (haut) {
-            console.log(haut);
             HTMLDivElement.style.top = haut + "px";
         })
         ioSocket.on('arrUsers', function (data){
             console.log('data', data);
             // console.log(data[0].ops[0].pseudonyme);
             // console.log(data[1].ops[0].pseudonyme);
+        })
+        ioSocket.on('deplacementBille', function (haut, cote) {
+            HTMLDivElement3.style.top = haut + "px";
+            HTMLDivElement3.style.left = cote + "px";
+        })
+        ioSocket.on('scoreJoueur1', function (scoreJ1) {
+            pointJoueur1.innerHTML = scoreJ1;
+        })
+        ioSocket.on('scoreJoueur2', function (scoreJ2) {
+            pointJoueur2.innerHTML = scoreJ2;
+        })
+        ioSocket.on('reset', function (haut, cote) {
+            HTMLDivElement3.style.top = haut;
+            HTMLDivElement3.style.left = cote;
         })
     })
 
