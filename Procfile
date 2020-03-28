@@ -1,0 +1,1 @@
+web: node jeu.js
