@@ -1,0 +1,68 @@
+.titre-score h1{
+    color: white;
+    text-align: center;
+}
+
+.joueur0 {
+    position: absolute;
+    top: 2%;
+    left: 13%;
+    color: white;
+    font-size: 2rem;
+}
+
+.joueur1 {
+    position: absolute;
+    top: 2%;
+    left: 65%;
+    color: white;
+    font-size: 2rem;
+}
+
+.jeu {
+    width: 100%;
+    height: 100%;
+}
+
+.milieu {
+    position: absolute;
+    left: 50%;
+    height: 100%;
+    width: 2px;
+    background-color: white;
+}
+
+#blocJoueur1 {
+    position: absolute;
+    left: 40px;
+    background-color: white;
+    height: 15%;
+    width: 0.5%;
+    top: 53%;
+}
+
+#blocJoueur2 {
+    position: absolute;
+    left: 1868px;
+    background-color: white;
+    height: 15%;
+    width: 0.5%;
+    top: 53%;
+}
+
+.none {
+    display: none;
+}
+
+.changement-logo {
+    width: 10%;
+}
+
+.ball {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 49.75%;
+}

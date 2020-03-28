@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/Pixeled.ttf') format('truetype');
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #273038;
+    font-family: 'Pixel';
+}
+
+/*  Formulaire */
+
+.formulaire>h2 {
+    text-align: center;
+    color: white;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.div1, .div2, .div3, .div4 {
+    display: flex;
+    justify-content: center;
+}
+
+/* label>img {
+    width: 55%;
+}*/
+
+label {
+    color: white;
+    margin-left: 2.5%;
+    margin-bottom: 0.5%;
+    margin-top: 2%;
+} 
+
+input[type=submit] {
+    margin-top: 3%;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: red;
+    font-size: 2rem;
+}
+
+input[type=text] {
+    padding: 2%;
+    margin-top: 3%;
+    margin-left: 15%;
+}
+
+.pseudo {
+    margin-top: 2.5%;
+}
+
+.pseudo-go {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 20%;
+}
+
+label>h2 {
+    text-align: center;
+}
+
+#regle{
+    color: white;
+    font-size: 1.2rem;
+    width: 50%;
+    text-align: center;
+    margin-top: 5%;
+    border: 2px solid white;
+    margin-left: 25%;
+}
+
+.fleche{
+    background-color: white;
+}
+
+p>img {
+    width: 4%;
+}
+
+.regle>p {
+    margin-top: 2%;
+}
+
+.regle>p:last-child {
+    margin-bottom: 2%;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+}
+
+span {
+    margin-left: 1%;
+}
+
+.messageErreur {
+    color: red;
+    margin-left: 7%;
+    width: 50%;
+}

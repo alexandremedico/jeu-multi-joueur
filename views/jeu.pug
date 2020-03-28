@@ -1,0 +1,26 @@
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  link(rel='stylesheet' href='/front/css/style.css')
+  link(rel='stylesheet' href='/front/css/jeu.css')
+  link(rel='icon' href='/front/img/icone1.ico')
+  title Jeu Multi
+.bloc-jeu
+  .titre-score
+    each joueur, index in data
+      .scoreJoueur1
+      p(class="joueur"+index id=joueur.ops[0].uuid)
+        img.changement-logo(src='/front/img/dark-force.png' alt='')
+        span(class="joueurName"+(index+1))= joueur.ops[0].pseudonyme
+        | : 
+        span(id="pointJoueur"+(index+1)) 0
+  .jeu
+    each joueur, index in data
+      div(id="blocJoueur"+(index+1))
+    #ball.ball
+    .milieu
+    
+script(src='/front/js/mouvement-barre-et-bille.js')
+
+script(src='http://192.168.1.91:5234/socket.io/socket.io.js')
