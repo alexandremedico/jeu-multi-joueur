@@ -1,1 +1,1 @@
-web: node jeu.js
+web:node jeu.js
