@@ -5,7 +5,7 @@
   "main": "jeu.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www"
+    "start": "node jeu.js"
   },
   "author": "alexandre Medico",
   "license": "ISC",
