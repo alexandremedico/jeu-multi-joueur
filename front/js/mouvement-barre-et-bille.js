@@ -18,7 +18,7 @@
     
     
     // let lorr = Math.round(Math.random() * 20);
-    var lorr = 12;
+    var lorr = 3;
     let scoreJ1 = 0;
     let scoreJ2 = 0;
     
@@ -32,14 +32,18 @@
             HTMLDivElement.style.left = monObjet.barreJoueur1.left + 'px';
         }
     
-        // var HTMLDivElement2 = window.document.getElementById('blocJoueur2');
-        // if ('' === HTMLDivElement2.style.top) {
-        //     HTMLDivElement2.style.top = monObjet.barreJoueur2.top + 'px';
-        // }
-    
-        // if ('' === HTMLDivElement2.style.left) {
-        //     HTMLDivElement2.style.left = monObjet.barreJoueur2.left + 'px';
-        // }
+        try {
+            var HTMLDivElement2 = window.document.getElementById('blocJoueur2');
+            if ('' === HTMLDivElement2.style.top) {
+                HTMLDivElement2.style.top = monObjet.barreJoueur2.top + 'px';
+            }
+        
+            if ('' === HTMLDivElement2.style.left) {
+                HTMLDivElement2.style.left = monObjet.barreJoueur2.left + 'px';
+            }
+        } catch (error) {
+            
+        }
 
         var HTMLDivElement3 = window.document.getElementById('ball');
         if ('' === HTMLDivElement3.style.top) {
