@@ -25,21 +25,21 @@
     ioSocket.on('bille', function (monObjet) {
         var HTMLDivElement = window.document.getElementById('blocJoueur1');
         if ('' === HTMLDivElement.style.top) {
-            HTMLDivElement.style.top = monObjet.barreJoueur1.top + 'px';
+            HTMLDivElement.style.top = monObjet.barreJoueur1.top + '%';
         }
     
         if ('' === HTMLDivElement.style.left) {
-            HTMLDivElement.style.left = monObjet.barreJoueur1.left + 'px';
+            HTMLDivElement.style.left = monObjet.barreJoueur1.left + '%';
         }
     
         try {
             var HTMLDivElement2 = window.document.getElementById('blocJoueur2');
             if ('' === HTMLDivElement2.style.top) {
-                HTMLDivElement2.style.top = monObjet.barreJoueur2.top + 'px';
+                HTMLDivElement2.style.top = monObjet.barreJoueur2.top + '%';
             }
         
             if ('' === HTMLDivElement2.style.left) {
-                HTMLDivElement2.style.left = monObjet.barreJoueur2.left + 'px';
+                HTMLDivElement2.style.left = monObjet.barreJoueur2.left + '%';
             }
         } catch (error) {
             
@@ -47,11 +47,11 @@
 
         var HTMLDivElement3 = window.document.getElementById('ball');
         if ('' === HTMLDivElement3.style.top) {
-            HTMLDivElement3.style.top = monObjet.bille.top +'px';
+            HTMLDivElement3.style.top = monObjet.bille.top +'%';
         }
 
         if ('' === HTMLDivElement3.style.left) {
-            HTMLDivElement3.style.left = monObjet.bille.left + 'px';
+            HTMLDivElement3.style.left = monObjet.bille.left + '%';
         }
 
         var idAnimation;
@@ -118,24 +118,24 @@
         
         if (touches[38]) {
             // déplacer vers le haut
-            var haut = parseFloat(HTMLDivElement.style.top) - 7;
+            var haut = parseFloat(HTMLDivElement.style.top) - 1;
             if (haut < 0) {
                 haut = 0;
             }
-            // HTMLDivElement.style.top = haut + "px";
+            
             ioSocket.emit("deplacementHaut", haut);
         }
 
         if (touches[40]) {
             // déplacer vers le bas
-            var haut = parseFloat(HTMLDivElement.style.top) + 7;
-            var hauteur = parseFloat(window.getComputedStyle(HTMLDivElement).height)
-            var bas = haut + hauteur;
+            var haut = parseFloat(HTMLDivElement.style.top) + 1;
+            // var hauteur = parseFloat(window.getComputedStyle(HTMLDivElement).height);
+            // var bas = haut + hauteur;
             
-            if (bas > hauteurFenetre) {
-                haut = hauteurFenetre - hauteur;
+            if (haut > 85) {
+                haut = 85;
             }
-            // HTMLDivElement.style.top = haut + "px";
+            
             ioSocket.emit("deplacementBas", haut);
         }}
 
@@ -146,22 +146,20 @@
             var cote;
 
             // direction de départ
-            // console.log(lorr);
             if (lorr <= 5) {
                 console.log('en haut à gauche');
-                haut = parseFloat(HTMLDivElement3.style.top) - 1;
-                cote = parseFloat(HTMLDivElement3.style.left) - 1;
-                HTMLDivElement3.style.top = haut + "px";
-                HTMLDivElement3.style.left = cote + "px";
+                haut = parseFloat(HTMLDivElement3.style.top) - 0.1;
+                cote = parseFloat(HTMLDivElement3.style.left) - 0.1;
+                HTMLDivElement3.style.top = haut + "%";
+                HTMLDivElement3.style.left = cote + "%";
 
                 // collision bord
-                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 925) {
-                    // console.log("je suis la !");
+                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
                     lorr = 7;
                 }
 
                 // collision barre
-                if (parseFloat(HTMLDivElement3.style.left) <= parseFloat(HTMLDivElement.style.left) + 10 && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) + 129) {
+                if (parseFloat(HTMLDivElement3.style.left) <= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) + 129) {
                     // console.log("rebond gauche");
                     lorr = 12;
                 }
@@ -179,19 +177,19 @@
 
             } else if (lorr > 5 && lorr <= 10) {
                 console.log('en bas à gauche');
-                haut = parseFloat(HTMLDivElement3.style.top) + 1;
-                cote = parseFloat(HTMLDivElement3.style.left) - 1;
-                HTMLDivElement3.style.top = haut + "px";
-                HTMLDivElement3.style.left = cote + "px";
+                haut = parseFloat(HTMLDivElement3.style.top) + 0.1;
+                cote = parseFloat(HTMLDivElement3.style.left) - 0.1;
+                HTMLDivElement3.style.top = haut + "%";
+                HTMLDivElement3.style.left = cote + "%";
 
                 // collision bord
-                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 925) {
+                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
                     // console.log("je suis la !");
                     lorr = 3;
                 }
 
                 // collision barre
-                if (parseFloat(HTMLDivElement3.style.left) <= parseFloat(HTMLDivElement.style.left) + 10 && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) + 129) {
+                if (parseFloat(HTMLDivElement3.style.left) <= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) + 129) {
                     // console.log("rebond gauche");
                     lorr = 17;
                 }
@@ -210,19 +208,19 @@
             } else if (lorr > 10 && lorr <= 15) {
                 console.log('en haut à droite');
 
-                haut = parseFloat(HTMLDivElement3.style.top) - 1;
-                cote = parseFloat(HTMLDivElement3.style.left) + 1;
-                HTMLDivElement3.style.top = haut + "px";
-                HTMLDivElement3.style.left = cote + "px";
+                haut = parseFloat(HTMLDivElement3.style.top) - 0.1;
+                cote = parseFloat(HTMLDivElement3.style.left) + 0.1;
+                HTMLDivElement3.style.top = haut + "%";
+                HTMLDivElement3.style.left = cote + "%";
 
                 // collision bord
-                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 925) {
+                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
                     // console.log("je suis la !");
                     lorr = 17;
                 }
 
                 // collision barre
-                if (parseFloat(HTMLDivElement3.style.left) >= parseFloat(HTMLDivElement.style.left) - 5 && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) + 129) {
+                if (parseFloat(HTMLDivElement3.style.left) >= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) + 129) {
                     // console.log("rebond gauche");
                     lorr = 3;
                 }
@@ -230,7 +228,7 @@
                 ioSocket.emit("deplacementBille", haut, cote);
 
                 // incrémentation score
-                if (parseFloat(HTMLDivElement3.style.left) >= 1908) {
+                if (parseFloat(HTMLDivElement3.style.left) >= 99.5) {
                     // console.log("joueur 2 + 1");
                     scoreJ1 += 1;
                     pointJoueur1.innerHTML = scoreJ1;
@@ -239,19 +237,19 @@
                 }
 
             } else {
-                haut = parseFloat(HTMLDivElement3.style.top) + 1;
-                cote = parseFloat(HTMLDivElement3.style.left) + 1;
-                HTMLDivElement3.style.top = haut + "px";
-                HTMLDivElement3.style.left = cote + "px";
+                haut = parseFloat(HTMLDivElement3.style.top) + 0.1;
+                cote = parseFloat(HTMLDivElement3.style.left) + 0.1;
+                HTMLDivElement3.style.top = haut + "%";
+                HTMLDivElement3.style.left = cote + "%";
 
                 // collision bord
-                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 925) {
+                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
                     // console.log("je suis la !");
                     lorr = 12;
                 }
 
                 // collision barre
-                if (parseFloat(HTMLDivElement3.style.left) >= parseFloat(HTMLDivElement.style.left) - 5 && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) + 129) {
+                if (parseFloat(HTMLDivElement3.style.left) >= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) + 129) {
                     // console.log("rebond gauche");
                     lorr = 7;
                 }
@@ -259,7 +257,7 @@
                 ioSocket.emit("deplacementBille", haut, cote);
 
                 // incrémentation score
-                if (parseFloat(HTMLDivElement3.style.left) >= 1908) {
+                if (parseFloat(HTMLDivElement3.style.left) >= 99.5) {
                     // console.log("joueur 2 + 1");
                     scoreJ1 += 1;
                     pointJoueur1.innerHTML = scoreJ1;
@@ -272,8 +270,8 @@
 
         // reset bille
         function reset() {
-            HTMLDivElement3.style.top = 426 + 'px';
-            HTMLDivElement3.style.left = 955 + 'px';
+            HTMLDivElement3.style.top = 50 + '%';
+            HTMLDivElement3.style.left = 49.75 + '%';
             var haut = HTMLDivElement3.style.top;
             var cote = HTMLDivElement3.style.left;
             console.log(haut,cote);
@@ -284,11 +282,11 @@
 
 
         ioSocket.on('deplacementHaut', function (haut) {
-            HTMLDivElement.style.top = haut + "px";
+            HTMLDivElement.style.top = haut + "%";
         })
 
         ioSocket.on('deplacementBas', function (haut) {
-            HTMLDivElement.style.top = haut + "px";
+            HTMLDivElement.style.top = haut + "%";
         })
         ioSocket.on('arrUsers', function (data){
             console.log('data', data);
@@ -296,8 +294,8 @@
             // console.log(data[1].ops[0].pseudonyme);
         })
         ioSocket.on('deplacementBille', function (haut, cote) {
-            HTMLDivElement3.style.top = haut + "px";
-            HTMLDivElement3.style.left = cote + "px";
+            HTMLDivElement3.style.top = haut + "%";
+            HTMLDivElement3.style.left = cote + "%";
         })
         ioSocket.on('scoreJoueur1', function (scoreJ1) {
             pointJoueur1.innerHTML = scoreJ1;

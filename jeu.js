@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 const session = require('express-session');
 const uuidv5 = require('uuid/v5');
 
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://admin:Alex002@cluster0-yisoi.mongodb.net/test?retryWrites=true&w=majority';
 const dbName = 'joueur';
 const client = new MongoClient(url);
 
@@ -14,7 +14,7 @@ const connectMongo = require('connect-mongo');
 const MongoStore = connectMongo(session);
 const options = {
     store: new MongoStore({
-        url: "mongodb://localhost:27017/joueur"
+        url: "mongodb+srv://admin:Alex002@cluster0-yisoi.mongodb.net/session?retryWrites=true&w=majority"
     }),
     secret: "blablabla",
     saveUninitialized: true,
@@ -109,18 +109,18 @@ webSocketServer.on("connect", function (ioSocket) {
 
     // partie bille et barreJoueur
     var barreJoueur1 = {
-        top: 350,
-        left: 40
+        top: 40,
+        left: 2
     }
 
     var barreJoueur2 = {
-        top: 350,
-        left: 1868
+        top: 40,
+        left: 98
     }
 
     var bille = {
-        top: 426,
-        left: 955
+        top: 50,
+        left: 49.75
     }
 
     var monObjet = {
