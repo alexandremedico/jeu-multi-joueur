@@ -1,9 +1,9 @@
 "use strict";
 
-var port = process.env.PORT;
+// var port = process.env.PORT;
 
   window.addEventListener("DOMContentLoaded", function() {
-    const ioSocket = io("http://0.0.0.0/5234");
+    const ioSocket = io();
 
     // const HTMLCollectionJoueur = document.getElementsByClassName('joueur');
 
