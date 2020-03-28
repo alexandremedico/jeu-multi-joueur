@@ -72,7 +72,7 @@ app.get('/jeu', function (req, res) {
 })
 
 
-const HTTPServer = app.listen(5234, function (uneErreur) {
+const HTTPServer = app.listen(process.env.PORT || 5234, function (uneErreur) {
     if (uneErreur) {
         console.log('Impossible de démarrer le serveur');
     } else {
