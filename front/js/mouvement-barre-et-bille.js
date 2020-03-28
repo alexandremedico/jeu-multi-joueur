@@ -2,7 +2,7 @@
 
 
   window.addEventListener("DOMContentLoaded", function() {
-    const ioSocket = io(process.env.PORT || 5234);
+    const ioSocket = io("http://0.0.0.0/0" + process.env.PORT || 5234);
 
     // const HTMLCollectionJoueur = document.getElementsByClassName('joueur');
 
