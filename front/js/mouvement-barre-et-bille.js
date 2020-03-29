@@ -5,8 +5,6 @@
   window.addEventListener("DOMContentLoaded", function() {
     const ioSocket = io();
 
-    // const HTMLCollectionJoueur = document.getElementsByClassName('joueur');
-
     ioSocket.on("connect", function() {
       console.log("Connected to the server");
     
@@ -33,18 +31,16 @@
             HTMLDivElement.style.left = monObjet.barreJoueur1.left + '%';
         }
     
-        try {
-            var HTMLDivElement2 = window.document.getElementById('blocJoueur2');
-            if ('' === HTMLDivElement2.style.top) {
-                HTMLDivElement2.style.top = monObjet.barreJoueur2.top + '%';
-            }
         
-            if ('' === HTMLDivElement2.style.left) {
-                HTMLDivElement2.style.left = monObjet.barreJoueur2.left + '%';
-            }
-        } catch (error) {
-            
+        var HTMLDivElement2 = window.document.getElementById('blocJoueur2');
+        if ('' === HTMLDivElement2.style.top) {
+            HTMLDivElement2.style.top = monObjet.barreJoueur2.top + '%';
         }
+    
+        if ('' === HTMLDivElement2.style.left) {
+            HTMLDivElement2.style.left = monObjet.barreJoueur2.left + '%';
+        }
+
 
         var HTMLDivElement3 = window.document.getElementById('ball');
         if ('' === HTMLDivElement3.style.top) {
@@ -55,27 +51,25 @@
             HTMLDivElement3.style.left = monObjet.bille.left + '%';
         }
 
-        var idAnimation;
         var bool = true;
-
+        
         window.onkeydown = function(event){
-    
+            
+            var idAnimation;
             let code = event.keyCode;
             // console.log(event.keyCode);
-                
+            
             switch (code) {
                 case 38:
                     // haut
                     touches[38] = true;
                     idAnimation = boucleDuJeu();
-                    // console.log('keydown');
                     break;
     
                 case 40:
                     // bas
                     touches[40] = true;
                     idAnimation = boucleDuJeu();
-                    // console.log('keydown');
                     break;
                 
                 case 13:
@@ -114,31 +108,51 @@
 
 
         function boucleDuJeu() {
-        var hauteurFenetre = window.innerHeight;
-        var hauteurFenetre2 = window.innerHeight;
+        var searchParams = new URLSearchParams(window.location.search);
+        var valuePseudoJ1 = window.document.getElementsByClassName('JoueurName1')[0].textContent;
         
         if (touches[38]) {
             // déplacer vers le haut
-            var haut = parseFloat(HTMLDivElement.style.top) - 1;
-            if (haut < 0) {
-                haut = 0;
+            if (searchParams.get("pseudonyme") == valuePseudoJ1) {
+                var haut = parseFloat(HTMLDivElement.style.top) - 1;
+                if (haut < 0) {
+                    haut = 0;
+                }
+
+                ioSocket.emit("deplacementHaut", haut);
+            } else {
+                console.log('la');
+                var haut = parseFloat(HTMLDivElement2.style.top) - 1;
+                if (haut < 0) {
+                    haut = 0;
+                }
+
+                ioSocket.emit("deplacementHaut", haut);
             }
             
-            ioSocket.emit("deplacementHaut", haut);
         }
 
         if (touches[40]) {
             // déplacer vers le bas
-            var haut = parseFloat(HTMLDivElement.style.top) + 1;
-            // var hauteur = parseFloat(window.getComputedStyle(HTMLDivElement).height);
-            // var bas = haut + hauteur;
-            
-            if (haut > 85) {
-                haut = 85;
-            }
-            
+            if (searchParams.get("pseudonyme") == valuePseudoJ1) {
+                var haut = parseFloat(HTMLDivElement.style.top) + 1;
+                if (haut > 85) {
+                    haut = 85;
+                }
+
             ioSocket.emit("deplacementBas", haut);
+
+            } else {
+                var haut = parseFloat(HTMLDivElement2.style.top) + 1;
+                if (haut > 85) {
+                    haut = 85;
+                }
+
+            ioSocket.emit("deplacementBas", haut);
+
+            }
         }}
+
 
         function boucleBille() {
             // bille
@@ -149,32 +163,31 @@
             // direction de départ
             if (lorr <= 5) {
                 console.log('en haut à gauche');
-                haut = parseFloat(HTMLDivElement3.style.top) - 0.1;
+                haut = parseFloat(HTMLDivElement3.style.top) - 0.2;
                 cote = parseFloat(HTMLDivElement3.style.left) - 0.1;
                 HTMLDivElement3.style.top = haut + "%";
                 HTMLDivElement3.style.left = cote + "%";
 
                 // collision bord
-                if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
+                if (parseFloat(HTMLDivElement3.style.top) <= 0) {
                     lorr = 7;
                 }
 
                 // collision barre
                 if (parseFloat(HTMLDivElement3.style.left) <= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) + 129) {
-                    // console.log("rebond gauche");
                     lorr = 12;
                 }
 
-                ioSocket.emit("deplacementBille", haut, cote);
-
+                
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) <= 0) {
-                    // console.log("joueur 2 + 1");
                     scoreJ2 += 1;
                     pointJoueur2.innerHTML = scoreJ2;
                     ioSocket.emit("scoreJoueur2", scoreJ2);
                     return reset();
                 }
+                
+                ioSocket.emit("deplacementBille", haut, cote);
 
             } else if (lorr > 5 && lorr <= 10) {
                 console.log('en bas à gauche');
@@ -185,26 +198,23 @@
 
                 // collision bord
                 if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
-                    // console.log("je suis la !");
                     lorr = 3;
                 }
 
                 // collision barre
                 if (parseFloat(HTMLDivElement3.style.left) <= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) + 129) {
-                    // console.log("rebond gauche");
                     lorr = 17;
                 }
 
-                ioSocket.emit("deplacementBille", haut, cote);
-
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) <= 0) {
-                    // console.log("joueur 2 + 1");
                     scoreJ2 += 1;
                     pointJoueur2.innerHTML = scoreJ2;
                     ioSocket.emit("scoreJoueur2", scoreJ2);
                     return reset();
                 }
+
+                ioSocket.emit("deplacementBille", haut, cote);
 
             } else if (lorr > 10 && lorr <= 15) {
                 console.log('en haut à droite');
@@ -216,13 +226,11 @@
 
                 // collision bord
                 if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
-                    // console.log("je suis la !");
                     lorr = 17;
                 }
 
                 // collision barre
                 if (parseFloat(HTMLDivElement3.style.left) >= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) + 129) {
-                    // console.log("rebond gauche");
                     lorr = 3;
                 }
 
@@ -230,7 +238,6 @@
 
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) >= 99.5) {
-                    // console.log("joueur 2 + 1");
                     scoreJ1 += 1;
                     pointJoueur1.innerHTML = scoreJ1;
                     ioSocket.emit("scoreJoueur1", scoreJ1);
@@ -245,13 +252,11 @@
 
                 // collision bord
                 if (parseFloat(HTMLDivElement3.style.top) <= 0 || parseFloat(HTMLDivElement3.style.top) >= 99.5) {
-                    // console.log("je suis la !");
                     lorr = 12;
                 }
 
                 // collision barre
                 if (parseFloat(HTMLDivElement3.style.left) >= parseFloat(HTMLDivElement.style.left) && parseFloat(HTMLDivElement3.style.top) <= parseFloat(HTMLDivElement.style.top) && parseFloat(HTMLDivElement3.style.top) >= parseFloat(HTMLDivElement.style.top) + 129) {
-                    // console.log("rebond gauche");
                     lorr = 7;
                 }
 
@@ -259,7 +264,6 @@
 
                 // incrémentation score
                 if (parseFloat(HTMLDivElement3.style.left) >= 99.5) {
-                    // console.log("joueur 2 + 1");
                     scoreJ1 += 1;
                     pointJoueur1.innerHTML = scoreJ1;
                     ioSocket.emit("scoreJoueur1", scoreJ1);
@@ -289,11 +293,11 @@
         ioSocket.on('deplacementBas', function (haut) {
             HTMLDivElement.style.top = haut + "%";
         })
-        ioSocket.on('arrUsers', function (data){
-            console.log('data', data);
-            // console.log(data[0].ops[0].pseudonyme);
-            // console.log(data[1].ops[0].pseudonyme);
-        })
+        // ioSocket.on('arrUsers', function (data){
+        //     console.log('data', data);
+        //     // console.log(data[0].ops[0].pseudonyme);
+        //     // console.log(data[1].ops[0].pseudonyme);
+        // })
         ioSocket.on('deplacementBille', function (haut, cote) {
             HTMLDivElement3.style.top = haut + "%";
             HTMLDivElement3.style.left = cote + "%";
@@ -320,7 +324,6 @@
             var text2 = document.getElementsByClassName('joueurName2');
             var textHtml = text2[0].textContent;
             ioSocket.emit("pseudo", textHtml);
-            console.log('je suis la');
         } catch (error) {
             console.log('cela ne marche pas');
         }
@@ -328,8 +331,8 @@
 
     ioSocket.on("pseudo", function (tableau) {
         try {
-            // var text2 = document.getElementsByClassName('joueurName2');
-            // text2 = tableauJoueurs[1];
+            var text2 = document.getElementsByClassName('joueurName2');
+            text2.innerHtml = tableau[1];
             console.log(tableau[1]);
         } catch (error) {
             console.log('cela ne marche pas');

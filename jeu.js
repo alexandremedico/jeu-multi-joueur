@@ -109,12 +109,12 @@ webSocketServer.on("connect", function (ioSocket) {
 
     // partie bille et barreJoueur
     var barreJoueur1 = {
-        top: 40,
+        top: 42,
         left: 2
     }
 
     var barreJoueur2 = {
-        top: 40,
+        top: 42,
         left: 98
     }
 
@@ -140,6 +140,16 @@ webSocketServer.on("connect", function (ioSocket) {
         ioSocket.emit("deplacementBas", haut);
         ioSocket.broadcast.emit("deplacementBas", haut);
     })
+
+    // ioSocket.on("deplacementHautJ2", function (haut) {
+    //     ioSocket.emit("deplacementHautJ2", haut);
+    //     ioSocket.broadcast.emit("deplacementHautJ2", haut);
+    // })
+
+    // ioSocket.on("deplacementBasJ2", function (haut) {
+    //     ioSocket.emit("deplacementBasJ2", haut);
+    //     ioSocket.broadcast.emit("deplacementBasJ2", haut);
+    // })
 
     ioSocket.on("deplacementBille", function (haut, cote) {
         ioSocket.emit("deplacementBille", haut, cote);
