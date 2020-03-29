@@ -54,7 +54,6 @@ app.get('/jeu', function (req, res) {
         if (insertion.pseudonyme == '') {
             res.render('index', { messageErreur: 'Pseudonyme vide' });
         } else {
-
             collection.insertOne(insertion, function (err, data) {
                 console.log(tableauJoueurs.length)
                 if (tableauJoueurs.length < 2) {
